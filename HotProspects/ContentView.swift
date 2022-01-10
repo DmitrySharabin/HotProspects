@@ -6,37 +6,34 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct ContentView: View {
-    @State private var backgroundColor = Color.red
-    
     var body: some View {
-        Text("Hello, World!")
-            .padding()
-            .background(backgroundColor)
-        
-        Text("Change Color")
-            .padding()
-            .contextMenu {
-//                Button("Red") {
-//                    backgroundColor = .red
-//                }
-                
-                Button(role: .destructive) {
-                    backgroundColor = .red
-                } label: {
-                    Label("Red", systemImage: "checkmark.circle.fill")
-//                        .foregroundColor(.red)
-                }
-                
-                Button("Green") {
-                    backgroundColor = .green
-                }
-                
-                Button("Blue") {
-                    backgroundColor = .blue
+        VStack {
+            Button("Request Permission") {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                    if success {
+                        print("All set!")
+                    } else if let error = error {
+                        print(error.localizedDescription)
+                    }
                 }
             }
+            
+            Button("Schedule Notification") {
+                let content = UNMutableNotificationContent()
+                content.title = "Feed the cat"
+                content.subtitle = "It looks hungry"
+                content.sound = UNNotificationSound.default
+                
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                
+                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                
+                UNUserNotificationCenter.current().add(request)
+            }
+        }
     }
 }
 
