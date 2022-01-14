@@ -12,6 +12,11 @@ class Prospect: Identifiable, Codable {
     var name = "Anonymous"
     var emailAddress = ""
     fileprivate(set) var isContacted = false
+    fileprivate(set) var date = Date.now
+}
+
+enum SortOrderType {
+    case date, name
 }
 
 @MainActor class Prospects: ObservableObject {
@@ -43,5 +48,16 @@ class Prospect: Identifiable, Codable {
         objectWillChange.send() // Order matters!!!
         prospect.isContacted.toggle()
         save()
+    }
+    
+    func sort(by order: SortOrderType) {
+        people.sort {
+            switch order {
+                case .name:
+                    return $0.name < $1.name
+                case .date:
+                    return $0.date > $1.date
+            }
+        }
     }
 }

@@ -16,6 +16,8 @@ struct ProspectsView: View {
     
     @EnvironmentObject var prospects: Prospects
     @State private var isShowingScanner = false
+
+    @State private var isShowingSortOrderSheet = false
     
     let filter: FilterType
     
@@ -52,14 +54,31 @@ struct ProspectsView: View {
             }
             .navigationTitle(title)
             .toolbar {
-                Button {
-                    isShowingScanner = true
-                } label: {
-                    Label("Scan", systemImage: "qrcode.viewfinder")
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isShowingSortOrderSheet = true
+                    } label: {
+                        Label("Sort", systemImage: "arrow.up.arrow.down")
+                    }
+                    .disabled(filteredProspects.isEmpty)
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isShowingScanner = true
+                    } label: {
+                        Label("Scan", systemImage: "qrcode.viewfinder")
+                    }
                 }
             }
             .sheet(isPresented: $isShowingScanner) {
                 CodeScannerView(codeTypes: [.qr], simulatedData: "Dmitry Sharabin\ndmitrysharabin@gmail.com", completion: handleScan)
+            }
+            .confirmationDialog("Sort by", isPresented: $isShowingSortOrderSheet, titleVisibility: .visible) {
+                Button("Name") { sortProspects(by: .name) }
+                Button("Most Recent") { sortProspects(by: .date) }
+                
+                Button("Cancel", role: .cancel) { }
             }
         }
     }
@@ -84,6 +103,10 @@ struct ProspectsView: View {
             case .uncontacted:
                 return prospects.people.filter { !$0.isContacted }
         }
+    }
+    
+    func sortProspects(by order: SortOrderType) {
+        prospects.sort(by: order)
     }
     
     func prospectListRow(for prospect: Prospect) -> some View {
