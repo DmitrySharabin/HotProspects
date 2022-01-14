@@ -16,6 +16,7 @@
 		8EDCADC0278B0CC400CE5A3F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDCADBF278B0CC400CE5A3F /* ContentView.swift */; };
 		8EDCADC2278B0CC600CE5A3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EDCADC1278B0CC600CE5A3F /* Assets.xcassets */; };
 		8EDCADC5278B0CC600CE5A3F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EDCADC4278B0CC600CE5A3F /* Preview Assets.xcassets */; };
+		8EE96500279178270079ABA5 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE964FF279178270079ABA5 /* FileManager-DocumentsDirectory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		8EDCADBF278B0CC400CE5A3F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8EDCADC1278B0CC600CE5A3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8EDCADC4278B0CC600CE5A3F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8EE964FF279178270079ABA5 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				8EDCADBD278B0CC400CE5A3F /* HotProspectsApp.swift */,
 				8EDCADBF278B0CC400CE5A3F /* ContentView.swift */,
 				8E7CE8E7278D8AE0007CC841 /* Prospect.swift */,
+				8EE964FF279178270079ABA5 /* FileManager-DocumentsDirectory.swift */,
 				8E7CE8E3278D87C1007CC841 /* ProspectsView.swift */,
 				8E795C3E27901797005EB4F5 /* ImageSaver.swift */,
 				8E7CE8E5278D87CE007CC841 /* MeView.swift */,
@@ -158,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E7CE8E6278D87CE007CC841 /* MeView.swift in Sources */,
+				8EE96500279178270079ABA5 /* FileManager-DocumentsDirectory.swift in Sources */,
 				8E795C3F27901797005EB4F5 /* ImageSaver.swift in Sources */,
 				8E7CE8E8278D8AE0007CC841 /* Prospect.swift in Sources */,
 				8E7CE8E4278D87C1007CC841 /* ProspectsView.swift in Sources */,
