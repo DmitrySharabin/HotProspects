@@ -23,37 +23,31 @@ struct ProspectsView: View {
         NavigationView {
             List {
                 ForEach(filteredProspects) { prospect in
-                    VStack(alignment: .leading) {
-                        Text(prospect.name)
-                            .font(.headline)
-                        
-                        Text(prospect.emailAddress)
-                            .foregroundColor(.secondary)
-                    }
-                    .swipeActions {
-                        if prospect.isContacted {
-                            Button {
-                                prospects.toggle(prospect)
-                            } label: {
-                                Label("Mark Uncontacted", systemImage: "person.crop.circle.badge.xmark")
+                    prospectListRow(for: prospect)
+                        .swipeActions {
+                            if prospect.isContacted {
+                                Button {
+                                    prospects.toggle(prospect)
+                                } label: {
+                                    Label("Mark Uncontacted", systemImage: "person.crop.circle.badge.xmark")
+                                }
+                                .tint(.blue)
+                            } else {
+                                Button {
+                                    prospects.toggle(prospect)
+                                } label: {
+                                    Label("Mark Contacted", systemImage: "person.crop.circle.fill.badge.checkmark")
+                                }
+                                .tint(.green)
+                                
+                                Button {
+                                    addNotification(for: prospect)
+                                } label: {
+                                    Label("Remind Me", systemImage: "bell")
+                                }
+                                .tint(.orange)
                             }
-                            .tint(.blue)
-                        } else {
-                            Button {
-                                prospects.toggle(prospect)
-                            } label: {
-                                Label("Mark Contacted", systemImage: "person.crop.circle.fill.badge.checkmark")
-                            }
-                            .tint(.green)
-                            
-                            Button {
-                                addNotification(for: prospect)
-                            } label: {
-                                Label("Remind Me", systemImage: "bell")
-                            }
-                            .tint(.orange)
                         }
-                    }
                 }
             }
             .navigationTitle(title)
@@ -89,6 +83,29 @@ struct ProspectsView: View {
                 return prospects.people.filter { $0.isContacted }
             case .uncontacted:
                 return prospects.people.filter { !$0.isContacted }
+        }
+    }
+    
+    func prospectListRow(for prospect: Prospect) -> some View {
+        let icon = prospect.isContacted ? "person.crop.circle.fill.badge.checkmark" : "person.crop.circle.badge.xmark"
+        let color: Color = prospect.isContacted ? .green : .blue
+        
+        return HStack {
+            if filter == .none {
+                Image(systemName: icon)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 35)
+                    .foregroundColor(color)
+            }
+            
+            VStack(alignment: .leading) {
+                Text(prospect.name)
+                    .font(.headline)
+                
+                Text(prospect.emailAddress)
+                    .foregroundColor(.secondary)
+            }
         }
     }
     
